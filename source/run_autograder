@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+# Exit if any command fails
+# set -e
+
+# Copy student's files from submission directory to source directory
+cp -r /autograder/submission/* /autograder/source/
+
+cd /autograder/source
+
+# Start FastAPI server in the background
+# Assuming their main FastAPI file is called app.py or main.py
+# We'll try both common filenames
+if [ -f "app.py" ]; then
+    python3 app.py > /dev/null 2>&1 &
+	SERVER_PID=$!
+	echo "Server put in the background with PID=${SERVER_PID}"
+else
+    echo "Error: No FastAPI server file (app.py or main.py) found"
+    exit 1
+fi
+
+
+# Wait for server to be ready (checks /docs endpoint)
+for i in {1..30}; do
+    if curl -s http://localhost:6543/docs > /dev/null; then
+        break
+    fi
+    sleep 1
+    if [ $i -eq 30 ]; then
+        echo "Error: Server failed to start within 30 seconds"
+        exit 1
+    fi
+done
+
+# Run the tests and save results
+python3 test_main.py
+# python3 -m pytest test_*.py --json-report --json-report-file=/autograder/results/pytests.json
+
+# Kill the FastAPI server
+kill $SERVER_PID
+
+# echo "Converting results to GradeScope format"
+
+# # Convert pytest JSON to Gradescope format
+# python3 convert_results.py
