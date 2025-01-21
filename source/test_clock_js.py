@@ -34,7 +34,7 @@ class TestWorldClockJavaScript(unittest.TestCase):
         # except TimeoutError:
         #     self.fail("time_diffs is undefined")
 
-    @weight(2)
+    @weight(5)
     def test_01_empty_form_submission(self):
         """Test that empty forms cannot be submitted"""
         # Try to submit empty timezone form
@@ -56,7 +56,7 @@ class TestWorldClockJavaScript(unittest.TestCase):
             "Page should remain on same URL after empty form submission",
         )
 
-    @weight(3)
+    @weight(5)
     def test_02_invalid_timezone_submission(self):
         """Test that invalid timezone input doesn't add a clock"""
         # Submit invalid timezone
@@ -72,7 +72,7 @@ class TestWorldClockJavaScript(unittest.TestCase):
             clocks.count(), 0, "No clock should be added with invalid timezone"
         )
 
-    @weight(3)
+    @weight(5)
     def test_03_valid_timezone_submission(self):
         """Test that valid timezone input adds a clock"""
         # Submit valid timezone
@@ -109,7 +109,7 @@ class TestWorldClockJavaScript(unittest.TestCase):
             timezone_input.input_value(), "", "Input should be cleared after submission"
         )
 
-    @weight(3)
+    @weight(5)
     def test_04_valid_index_removal(self):
         """Test that valid index removes correct clock"""
         # First add a clock
@@ -139,7 +139,7 @@ class TestWorldClockJavaScript(unittest.TestCase):
             index_input.input_value(), "", "Input should be cleared after submission"
         )
 
-    @weight(3)
+    @weight(5)
     def test_05_invalid_index_removal(self):
         """Test that invalid index doesn't remove any clocks"""
         # First add a clock

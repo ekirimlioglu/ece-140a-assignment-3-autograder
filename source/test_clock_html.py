@@ -21,7 +21,7 @@ class TestWorldClockPage(unittest.TestCase):
         """Navigate to the world clock page before each test."""
         self.page.goto("http://localhost:6543/world-clock")
 
-    @weight(3)
+    @weight(5)
     def test_01_form_elements(self):
         """Test if page has two forms with correct input elements"""
         # Check for exactly 2 forms
@@ -50,7 +50,7 @@ class TestWorldClockPage(unittest.TestCase):
             submit_input.count(), 1, "Second form should have one submit input"
         )
 
-    @weight(2)
+    @weight(5)
     def test_02_heading_element(self):
         """Test if page has correct h2 heading"""
         heading = self.page.locator("h2")
@@ -61,7 +61,7 @@ class TestWorldClockPage(unittest.TestCase):
             "h2 element should have text content 'My Clocks'",
         )
 
-    @weight(2)
+    @weight(5)
     def test_03_clocks_list(self):
         """Test if page has ul element with correct id"""
         clocks_list = self.page.locator("ul#clocks")
@@ -71,7 +71,7 @@ class TestWorldClockPage(unittest.TestCase):
             "Page should have exactly one ul element with id 'clocks'",
         )
 
-    @weight(4)
+    @weight(5)
     def test_04_template_structure(self):
         """Test if template element exists and has correct structure"""
         template = self.page.locator("template")
@@ -113,7 +113,7 @@ class TestWorldClockPage(unittest.TestCase):
             "Template should have one div with class 'time'",
         )
 
-    @weight(3)
+    @weight(5)
     def test_05_required_resources(self):
         """Test if required CSS and JavaScript files are included"""
         # Check if CSS link is in head using JavaScript evaluation

@@ -21,7 +21,7 @@ class TestPuppyPongPage(unittest.TestCase):
         """Navigate to the puppy pong page before each test"""
         self.page.goto("http://localhost:6543/puppy-pong")
 
-    @weight(3)
+    @weight(5)
     def test_01_score_and_time_paragraphs(self):
         """Test if page has correct score and time paragraphs"""
         # Get all paragraphs
@@ -44,7 +44,7 @@ class TestPuppyPongPage(unittest.TestCase):
             "Second paragraph should follow format 'Time: N secs'",
         )
 
-    @weight(3)
+    @weight(5)
     def test_02_puppy_image(self):
         """Test if puppy image exists with correct attributes"""
         # Find image element
@@ -71,7 +71,7 @@ class TestPuppyPongPage(unittest.TestCase):
             200 <= img_attributes["width"] <= 400, "Image width should be 300px"
         )
 
-    @weight(3)
+    @weight(5)
     def test_03_deathzone_and_player(self):
         """Test if deathzone div and player span exist with correct IDs"""
         # Check deathzone div
@@ -100,7 +100,7 @@ class TestPuppyPongPage(unittest.TestCase):
             player_in_deathzone, "Player span should be inside deathzone div"
         )
 
-    @weight(3)
+    @weight(5)
     def test_04_required_resources(self):
         """Test if required CSS and script are included"""
         # Check for CSS link in head

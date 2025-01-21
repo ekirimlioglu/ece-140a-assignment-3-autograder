@@ -23,7 +23,7 @@ class TestPuppyPongCSS(unittest.TestCase):
         """Navigate to the puppy pong page before each test"""
         self.page.goto("http://localhost:6543/puppy-pong")
 
-    @weight(3)
+    @weight(5)
     def test_01_body_styles(self):
         """Test if body has correct background color and height"""
         body_styles = self.page.evaluate(
@@ -56,7 +56,7 @@ class TestPuppyPongCSS(unittest.TestCase):
             "Body height should match window height",
         )
 
-    @weight(3)
+    @weight(5)
     def test_02_absolute_positioning(self):
         """Test if puppy image and death zone are absolutely positioned"""
         positioning = self.page.evaluate(
@@ -85,7 +85,7 @@ class TestPuppyPongCSS(unittest.TestCase):
             "Death zone should be absolutely positioned",
         )
 
-    @weight(3)
+    @weight(5)
     def test_03_deathzone_styles(self):
         """Test if death zone has correct styles"""
         deathzone_styles = self.page.evaluate(
@@ -124,7 +124,7 @@ class TestPuppyPongCSS(unittest.TestCase):
             "Death zone should be at the bottom of the browser",
         )
 
-    @weight(3)
+    @weight(5)
     def test_04_text_and_player_colors(self):
         """Test if paragraphs have white text and player has white background"""
         colors = self.page.evaluate(
