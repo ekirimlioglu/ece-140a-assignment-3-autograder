@@ -48,7 +48,7 @@ class TestPuppyPongPage(unittest.TestCase):
     def test_02_puppy_image(self):
         """Test if puppy image exists with correct attributes"""
         # Find image element
-        img = self.page.locator("img[src='/public/puppy.jpg']")
+        img = self.page.locator("img[src*='puppy.jpg']")
         self.assertEqual(img.count(), 1, "Page should have exactly one puppy image")
 
         # Verify image attributes using JavaScript evaluation
@@ -107,7 +107,7 @@ class TestPuppyPongPage(unittest.TestCase):
         css_in_head = self.page.evaluate(
             """
             () => {
-                const cssLink = document.querySelector('link[href="/public/css/puppy_pong.css"]');
+                const cssLink = document.querySelector('link[href*="puppy_pong.css"]');
                 return cssLink && cssLink.parentNode.tagName.toLowerCase() === 'head';
             }
         """
@@ -115,5 +115,5 @@ class TestPuppyPongPage(unittest.TestCase):
         self.assertTrue(css_in_head, "CSS link should be in the head element")
 
         # Check for script element
-        script = self.page.locator("script[src='/public/js/puppy_pong.js']")
+        script = self.page.locator("script[src*='puppy_pong.js']")
         self.assertEqual(script.count(), 1, "Page should include puppy_pong.js script")

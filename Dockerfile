@@ -43,3 +43,7 @@ RUN chmod +x /autograder/run_autograder
 
 # Create necessary directories
 RUN mkdir -p /autograder/results
+
+RUN pip install python-dotenv certifi itsdangerous
+
+ENV API_KEY=KWoh0ZOSGPfB52ArjG99w6pxO16VU6Pc

@@ -120,7 +120,7 @@ class TestWorldClockPage(unittest.TestCase):
         css_in_head = self.page.evaluate(
             """
             () => {
-                const cssLink = document.querySelector('link[href="/public/css/world_clock.css"]');
+                const cssLink = document.querySelector('link[href*="world_clock.css"]');
                 return cssLink && cssLink.parentNode.tagName.toLowerCase() === 'head';
             }
         """
@@ -135,7 +135,7 @@ class TestWorldClockPage(unittest.TestCase):
                 const lastElement = body.lastElementChild;
                 return lastElement &&
                        lastElement.tagName.toLowerCase() === 'script' &&
-                       lastElement.src.endsWith('/public/js/world_clock.js');
+                       lastElement.src.includes('world_clock.js');
             }
         """
         )

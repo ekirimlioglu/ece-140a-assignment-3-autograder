@@ -8,16 +8,39 @@ cp -r /autograder/submission/* /autograder/source/
 
 cd /autograder/source
 
+touch /autograder/source/fastapi.log
+
 # Start FastAPI server in the background
 # Assuming their main FastAPI file is called app.py or main.py
 # We'll try both common filenames
 if [ -f "app.py" ]; then
-    python3 app.py > /dev/null 2>&1 &
+    # send all output to fastapi.log
+    python3 app.py > /autograder/source/fastapi.log 2>&1 &
 	SERVER_PID=$!
 	echo "Server put in the background with PID=${SERVER_PID}"
 else
-    echo "Error: No FastAPI server file (app.py or main.py) found"
-    exit 1
+    echo "You did not pass the sanity check. Here are the logs:"
+    cat /autograder/source/fastapi.log
+    # find a way to pass the log on to the test output in a 0/0 score test
+    # Create results.json with a single failing test
+    cat > /autograder/results/results.json << EOL
+{
+    "tests": [
+        {
+            "name": "You did not pass the sanity check, your server failed to start. Here are the logs:",
+            "score": 0,
+            "max_score": 0,
+            "status": "failed", 
+            "output": "$(cat /autograder/source/fastapi.log)"
+        }
+    ],
+    "leaderboard": [],
+    "visibility": "visible",
+    "execution_time": "0",
+    "score": 0
+}
+EOL
+    exit 0
 fi
 
 
@@ -28,8 +51,24 @@ for i in {1..30}; do
     fi
     sleep 1
     if [ $i -eq 30 ]; then
-        echo "Error: Server failed to start within 30 seconds"
-        exit 1
+    cat > /autograder/results/results.json << EOL
+{
+    "tests": [
+        {
+            "name": "You did not pass the sanity check, your server failed to start. Here are the logs:",
+            "score": 0,
+            "max_score": 0,
+            "status": "failed", 
+            "output": "$(cat /autograder/source/fastapi.log)"
+        }
+    ],
+    "leaderboard": [],
+    "visibility": "visible",
+    "execution_time": "0",
+    "score": 0
+}
+EOL
+    exit 0
     fi
 done
 
